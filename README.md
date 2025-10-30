@@ -32,10 +32,13 @@ ___
 
 ### Algorithm 1:
 This is a brief explanation of algorithm 1. Blah blah blah blah...
-  <br>**Time Complexity:**
+<br><br>**Time Complexity:**
+<br>**Space Complexity:**
 
 ### Algorithm 2:
 This is a brief explanation of algorithm 2. Blah blah blah blah...
+<br><br>**Time Complexity:**
+<br>**Space Complexity:**
 
 ---
 
