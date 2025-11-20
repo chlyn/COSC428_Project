@@ -8,7 +8,7 @@
 <body>
   <div class="desktop">
     <header class="desktop-bar">
-      <div>DayanaOS</div>
+      <div>algoOS</div>
       <div>Algorithm Visualization</div>
       <div>10:24 PM</div>
     </header>
@@ -28,9 +28,25 @@
         </div>
 
         <div class="app-content">
-          <div id="graph-container">
-            <canvas id="graphCanvas"></canvas>
-          </div>
+            <div id="graph-container">
+                <canvas id="graphCanvas"></canvas>
+            </div>
+
+        <div class="controls">
+            <label class="control-label">Select Algorithm</label>
+                <div class="controls-container2">
+                    <div class="algoselect-container">
+                        <select id="algoSelect">
+                        <option value="dijkstra">Dijkstra</option>
+                        <option value="bellmanford">Bellman-Ford</option>
+                    </select>
+                    </div>
+                    <div class="runAlgoBtn-container">
+                        <button id="runAlgoBtn">Run & Animate</button>
+                    </div>
+                </div>
+        </div>
+
         </div>
 
         <div class="app-statusbar">
