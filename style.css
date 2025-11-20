@@ -21,6 +21,13 @@ body {
   flex-direction: column;
 }
 
+#graph-container {
+    flex: none;
+    width: 100%;
+    height: 400px;
+    max-height: 500px;
+}
+
 .desktop-bar {
   height: 32px;
   border-radius: 8px;
@@ -88,13 +95,6 @@ body {
   background: #4ade80;
 }
 
-.app-content {
-  flex: 1;
-  background: radial-gradient(circle at top left, #1d283a, #020617);
-  padding: 12px;
-  display: flex;
-}
-
 #graph-container {
   flex: 1;
   border-radius: 8px;
@@ -113,4 +113,77 @@ body {
   align-items: center;
   padding-left: 8px;
   font-size: 11px;
+}
+
+.app-content {
+  flex: 1;
+  background: radial-gradient(circle at top left, #1d283a, #020617);
+  padding: 12px;
+  display: flex;
+  gap: 12px;
+  flex-direction: column;
+}
+
+#graph-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #020617;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.controls {
+  width: 180px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font-size: 13px;
+}
+
+.control-label {
+  color: #cbd5e1;
+  font-size: 13px;
+}
+
+#algoSelect {
+  padding: 6px;
+  border-radius: 6px;
+  border: 1px solid #475569;
+  background: #111827;
+  color: #e5e7eb;
+}
+
+#algoSelect:focus {
+  outline: none;
+  border-color: #3b82f6;
+}
+
+#runAlgoBtn {
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid #4b5563;
+  background: #1e293b;
+  color: #e5e7eb;
+  cursor: pointer;
+}
+
+#runAlgoBtn:hover {
+  background: #334155;
+}
+
+.runAlgoBtn-container{
+    display: flex;
+}
+
+.algoselect-container{
+    display: flex;
+}
+
+.controls-container2{
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    align-items: center;
 }
