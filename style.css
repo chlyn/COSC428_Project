@@ -14,7 +14,6 @@
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI";
 }
 
-
 body {
   height: 100vh;
   background: linear-gradient(135deg, #cdffd8, #94b9ff);
@@ -61,7 +60,7 @@ body {
 }
 
 .app-window {
-  width: min(900px, 100%);
+  width: min(850px, 100%);
   height: min(600px, 100%);
   background: var(--window-surface-background);
   border-radius: 3px;
@@ -109,7 +108,6 @@ body {
   background: var(--window-titlebar-highlights);
 }
 
-
 .window-buttons {
   position: relative;
   margin-left: auto;
@@ -139,6 +137,7 @@ body {
   background: var(--window-titlebar-background);
   padding: 12px;
   display: flex;
+  flex-direction: column;
 }
 
 #graph-container {
@@ -148,6 +147,7 @@ body {
   border: 1px solid #1f2937;
   position: relative;
   overflow: hidden;
+  min-height: 350px;
 }
 
 .app-statusbar {
@@ -232,4 +232,5 @@ body {
     flex-direction: row;
     gap: 5px;
     align-items: center;
+    width: 300px;
 }

@@ -51,38 +51,21 @@ function resizeCanvas() {
   const containerW = rect.width;
   const containerH = rect.height;
 
-  // Maze ratio (width/height)
-  const mazeRatio = cols / rows;
-  const containerRatio = containerW / containerH;
+  const maxCellW = containerW / cols;
+  const maxCellH = containerH / rows;
 
-  let drawW, drawH;
+  cellSize = Math.floor(Math.min(maxCellW, maxCellH));
 
-  // If container is wider than maze ratio → match height
-  if (containerRatio > mazeRatio) {
-    drawH = containerH;
-    drawW = drawH * mazeRatio;
-  } else {
-    // If container is taller → match width
-    drawW = containerW;
-    drawH = drawW / mazeRatio;
-  }
-
-  // Round down and recompute cell size
-  drawW = Math.floor(drawW);
-  drawH = Math.floor(drawH);
-  cellSize = Math.floor(drawW / cols);
-
-  // Now force canvas size to match MAZE, not the container
+  // Canvas size is exactly maze size in pixels
   canvas.width  = cellSize * cols;
   canvas.height = cellSize * rows;
 
-  // CSS size matches pixel size (important!)
+  // Match CSS size to drawing size
   canvas.style.width  = canvas.width + "px";
   canvas.style.height = canvas.height + "px";
 
   drawMaze();
 }
-
 
 function drawMaze() {
   ctx.fillStyle = "black";
@@ -128,61 +111,6 @@ function drawMaze() {
       }
     }
   }
-}
-
-// bfs place holder
-function bfsPath(start, goal) {
-  const q = [];
-  const visited = new Set();
-  const parent = new Map();
-
-  const startKey = `${start.r},${start.c}`;
-  const goalKey = `${goal.r},${goal.c}`;
-
-  q.push(start);
-  visited.add(startKey);
-
-  const dirs = [
-    { dr: -1, dc: 0 },
-    { dr: 1, dc: 0 },
-    { dr: 0, dc: -1 },
-    { dr: 0, dc: 1 },
-  ];
-
-  while (q.length > 0) {
-    const cur = q.shift();
-    const curKey = `${cur.r},${cur.c}`;
-    if (curKey === goalKey) break;
-
-    for (const { dr, dc } of dirs) {
-      const nr = cur.r + dr;
-      const nc = cur.c + dc;
-      if (!isWalkable(nr, nc)) continue;
-      const nKey = `${nr},${nc}`;
-      if (!visited.has(nKey)) {
-        visited.add(nKey);
-        parent.set(nKey, curKey);
-        q.push({ r: nr, c: nc });
-      }
-    }
-  }
-
-  // reconstruct path
-  const path = [];
-  let curKey = goalKey;
-  if (!parent.has(curKey) && curKey !== startKey) {
-    console.warn("No path found from S to G");
-    return null;
-  }
-
-  while (curKey !== startKey) {
-    const [r, c] = curKey.split(",").map(Number);
-    path.push({ r, c });
-    curKey = parent.get(curKey);
-  }
-  path.push(start);
-  path.reverse();
-  return path;
 }
 
 // anination
@@ -246,5 +174,6 @@ runBtn.addEventListener("click", () => {
   animatePath(path);
 });
 
-
-
+// do not remove
+window.addEventListener("load", resizeCanvas);
+window.addEventListener("resize", resizeCanvas);
