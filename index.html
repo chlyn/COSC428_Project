@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>Algorithm Visualization Desktop</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -10,7 +11,7 @@
     <header class="desktop-bar">
       <div>algoOS</div>
       <div>Algorithm Visualization</div>
-      <div>10:24 PM</div>
+      <div id="datetime"></div>
     </header>
 
     <main class="desktop-main">
@@ -34,22 +35,19 @@
 
         <div class="controls">
             <label class="control-label">Select Algorithm</label>
-                <div class="controls-container2">
-                    <div class="algoselect-container">
-                        <select id="algoSelect">
-                        <option value="dijkstra">Dijkstra</option>
-                        <option value="bellmanford">Bellman-Ford</option>
+            <div class="controls-container">
+                  <div class="algoSelect-container">
+                    <select id="algoSelect">
+                      <option value="dijkstra">Dijkstra</option>
+                      <option value="bellmanford">Bellman-Ford</option>
                     </select>
-                    </div>
-                    <div class="runAlgoBtn-container">
-                        <button id="runAlgoBtn">Run & Animate</button>
-                    </div>
-                </div>
+                  </div>
+                  <div class="algoBtns-container">
+                    <button id="runBtn">Run</button>
+                    <button id="pauseBtn">Pause</button>
+                  </div>
+              </div>
             </div>
-        </div>
-
-        <div class="app-statusbar">
-          Ready — algorithms
         </div>
       </div>
     </main>

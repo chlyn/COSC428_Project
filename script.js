@@ -2,7 +2,7 @@ const canvas = document.getElementById("graphCanvas");
 const container = document.getElementById("graph-container");
 const ctx = canvas.getContext("2d");
 
-const runBtn = document.getElementById("runAlgoBtn");
+const runBtn = document.getElementById("runBtn");
 
 let cellSize; 
 let rows, cols;
@@ -60,9 +60,9 @@ function resizeCanvas() {
   canvas.width  = cellSize * cols;
   canvas.height = cellSize * rows;
 
-  // Match CSS size to drawing size
-  canvas.style.width  = canvas.width + "px";
-  canvas.style.height = canvas.height + "px";
+  // // Match CSS size to drawing size
+  // canvas.style.width  = canvas.width + "px";
+  // canvas.style.height = canvas.height + "px";
 
   drawMaze();
 }
@@ -177,3 +177,24 @@ runBtn.addEventListener("click", () => {
 // do not remove
 window.addEventListener("load", resizeCanvas);
 window.addEventListener("resize", resizeCanvas);
+
+// === DECKTOP DATE & TIME ===
+function updateDateTime() {
+  const now = new Date();
+
+  const weekday = now.toLocaleDateString("en-US", { weekday: "short" });
+  const month   = now.toLocaleDateString("en-US", { month: "short" });
+  const day     = now.getDate(); // numeric day, no comma
+  const time    = now.toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit"
+  });
+
+  // No commas anywhere
+  const formatted = `${weekday} ${month} ${day} • ${time}`;
+
+  document.getElementById("datetime").textContent = formatted;
+}
+
+updateDateTime();
+setInterval(updateDateTime, 1000);
