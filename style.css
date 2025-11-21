@@ -1,4 +1,5 @@
 :root {
+  --bg-app-title: #2C508C;
   --desktopbar-background: #57cbcd;
   --desktopbar-border: #2C508C;
   --window-border: #2C508C;   
@@ -31,6 +32,7 @@ body {
   height: 100vh; 
   z-index: -1;   
   overflow: hidden;
+  pointer-events: none; 
 }
 
 .bg-img {
@@ -47,6 +49,40 @@ body {
 .bg-img.bottom {
   bottom: 0;
   height: 1200px;
+}
+
+.background-apps {
+  position: fixed;
+  top: 80px;   
+  left: 40px;
+  display: grid;
+  grid-template-columns: repeat(2, 80px);  
+  grid-auto-rows: 110px;                   
+  gap: 0 16px;               
+  pointer-events: none; 
+  z-index: -1;          
+}
+
+.bg-app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  width: 70px;
+}
+
+.bg-app img {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+.bg-app span {
+  font-size: 13px;
+  color: var(--bg-app-title);
+  text-align: center;
+  font-weight: 500;
 }
 
 .desktop {
