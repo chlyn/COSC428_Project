@@ -17,7 +17,7 @@
 
 body {
   height: 100vh;
-  background: linear-gradient(180deg, #cdffd8, #94b9ff);
+  background: linear-gradient(180deg, #cdffd8 0%, #94b9ff 80%);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -41,12 +41,12 @@ body {
 
 .bg-img.top {
   top: 0;
-  height: 1500px; 
+  height: 1200px; 
 }
 
 .bg-img.bottom {
   bottom: 0;
-  height: 1500px;
+  height: 1200px;
 }
 
 .desktop {
