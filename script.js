@@ -190,10 +190,10 @@ function updateDateTime() {
     minute: "2-digit"
   });
 
-  // No commas anywhere
-  const formatted = `${weekday} ${month} ${day} • ${time}`;
+  const dateString = `${weekday} ${month} ${day}`;
 
-  document.getElementById("datetime").textContent = formatted;
+  document.getElementById("date").textContent = dateString;
+  document.getElementById("time").textContent = time;
 }
 
 updateDateTime();

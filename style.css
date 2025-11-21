@@ -2,9 +2,12 @@
 /* COLORS */
 
 :root {
-  --bg-app-title: #2C508C;
+  --bg-color-top: #cdffd8; 
+  --bg-color-bottom: #94b9ff;
+  --bg-text: #2C508C;
   --desktopbar-background: #57cbcd;
   --desktopbar-border: #2C508C;
+  --desktopbar-text: #2C508C;
   --window-border: #2C508C;   
   --window-content-background: #CAEFE6;  
   --window-titlebar-buttons: #2C508C;   
@@ -24,7 +27,7 @@
 
 body {
   height: 100vh;
-  background: linear-gradient(180deg, #cdffd8 0%, #94b9ff 80%);
+  background: linear-gradient(180deg, var(--bg-color-top) 0%, var(--bg-color-bottom) 80%);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -89,7 +92,7 @@ body {
 
 .bg-app span {
   font-size: 13px;
-  color: var(--bg-app-title);
+  color: var(--bg-text);
   text-align: center;
   font-weight: 500;
 }
@@ -115,19 +118,59 @@ body {
   border: 3px solid var(--desktopbar-border);
   backdrop-filter: blur(6px);
   display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  grid-template-columns: auto 1fr auto;
   align-items: center;
-  padding: 0 12px;
-  color: var(--desktopbar-border);
+  padding: 0 24px;
+  color: var(--desktopbar-text);
   font-size: 13px;
+  font-weight: 500;
   box-shadow: 0 4px 10px rgba(0,0,0,0.35);
 }
 
-.desktop-bar > div:last-child {
-  justify-self: end; 
+.desktop-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  justify-self: start;
 }
-.desktop-bar > div:first-child {
-  justify-self: start; 
+
+.desktop-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  justify-self: end;
+}
+
+.desktop-logo {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+.desktop-icons {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.desktop-icon {
+  object-fit: contain;
+}
+
+.desktop-icon.wifi {
+  width: 18px;
+  height: 18px;
+}
+
+.desktop-icon.battery {
+  width: 28px;
+  height: 28px;
+}
+
+.desktop-datetime {
+  display: flex;
+  align-items: center;
+  gap: 11px; 
 }
 
 

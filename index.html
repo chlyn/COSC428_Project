@@ -9,39 +9,56 @@
 <body>
 
   <div class="background-images">
-    <img src="/assets/background/background-top.png" class="bg-img top">
-    <img src="/assets/background/background-bottom.png" class="bg-img bottom">
+    <img src="assets/background/background-top.png" class="bg-img top">
+    <img src="assets/background/background-bottom.png" class="bg-img bottom">
   </div>
 
   <div class="background-apps">
     <div class="bg-app">
-      <img src="/assets/icons/folder.png">
+      <img src="assets/icons/folder.png">
       <span>Projects</span>
     </div>
     <div class="bg-app">
-      <img src="/assets/icons/trash.png">
+      <img src="assets/icons/trash.png">
       <span>Trash</span>
     </div>
     <div class="bg-app">
-      <img src="/assets/icons/folder.png">
+      <img src="assets/icons/folder.png">
       <span>Playlist</span>
     </div>   
     <div class="bg-app">
-      <img src="/assets/icons/folder.png">
+      <img src="assets/icons/folder.png">
       <span>Notes</span>
     </div>
     <div class="bg-app">
-      <img src="/assets/icons/games.png">
+      <img src="assets/icons/games.png">
       <span>Games</span>
     </div>
   </div>
 
   <div class="desktop">
 
+    <!-- DESKTOP-BAR -->
     <header class="desktop-bar">
-      <div>algoOS</div>
-      <div>Algorithm Visualization</div>
-      <div id="datetime"></div>
+
+      <!-- Left Side - Logo & Name -->
+      <div class="desktop-left">
+        <img src="assets/icons/heart.png" class="desktop-logo" alt="algoOS logo">
+        <span>algorithmOS</span>
+      </div>
+
+      <!-- Right Side - Wifi, Battery, Date & Time -->
+      <div class="desktop-right">
+        <div class="desktop-icons">
+          <img src="assets/icons/wifi.png" class="desktop-icon wifi" alt="Wi-Fi">
+          <img src="assets/icons/battery.png" class="desktop-icon battery" alt="Battery">
+        </div>
+        <div class="desktop-datetime">
+            <span id="date"></span>
+            <span id="time"></span>
+        </div>
+      </div>
+
     </header>
 
     <main class="desktop-main">
