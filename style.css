@@ -136,6 +136,17 @@ body {
   background: var(--window-titlebar-highlights);
 }
 
+.window-title {
+  position: relative;
+  margin-right: auto;
+  font-size: 14px;
+  font-weight: 500;
+  color: #2C508C; 
+  display: flex;
+  padding-top: 14px;
+  padding-left: 12px;
+}
+
 .window-buttons {
   position: relative;
   margin-left: auto;
@@ -237,7 +248,7 @@ body {
   display: flex;
   gap: 16px;        
   font-size: 15px;
-  color: #475569;
+  color: #2C508C; 
   font-weight: 500;
   padding-bottom: 8px;
 }
