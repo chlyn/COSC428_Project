@@ -17,10 +17,36 @@
 
 body {
   height: 100vh;
-  background: linear-gradient(135deg, #cdffd8, #94b9ff);
+  background: linear-gradient(180deg, #cdffd8, #94b9ff);
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.background-images {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh; 
+  z-index: -1;   
+  overflow: hidden;
+}
+
+.bg-img {
+  position: absolute;
+  width: 100%;
+  object-fit: cover;
+}
+
+.bg-img.top {
+  top: 0;
+  height: 1500px; 
+}
+
+.bg-img.bottom {
+  bottom: 0;
+  height: 1500px;
 }
 
 .desktop {
