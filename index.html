@@ -33,21 +33,28 @@
                 <canvas id="graphCanvas"></canvas>
             </div>
 
-        <div class="controls">
-            <label class="control-label">Select Algorithm</label>
-            <div class="controls-container">
-                  <div class="algoSelect-container">
-                    <select id="algoSelect">
-                      <option value="dijkstra">Dijkstra</option>
-                      <option value="bellmanford">Bellman-Ford</option>
-                    </select>
-                  </div>
-                  <div class="algoBtns-container">
-                    <button id="runBtn">Run</button>
-                    <button id="pauseBtn">Pause</button>
-                  </div>
+          <div class="information-bar">
+            <div class="controls">
+              <label class="control-label">Select Algorithm</label>
+              <div class="controls-container">
+                <div class="algoSelect-container">
+                  <select id="algoSelect">
+                    <option value="dijkstra">Dijkstra</option>
+                    <option value="bellmanford">Bellman-Ford</option>
+                  </select>
+                </div>
+                <div class="algoBtns-container">
+                  <button id="runBtn">Run</button>
+                  <button id="pauseBtn">Pause</button>
+                </div>
               </div>
             </div>
+
+            <div class="stats">
+              <span id="timeStat">Time Complexity: O(V²)</span>
+              <span id="spaceStat">Memory Complexity: O(V)</span>
+            </div>
+          </div>
         </div>
       </div>
     </main>
