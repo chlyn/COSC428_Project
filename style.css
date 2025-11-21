@@ -1,3 +1,6 @@
+/*********************************************************************/
+/* COLORS */
+
 :root {
   --bg-app-title: #2C508C;
   --desktopbar-background: #57cbcd;
@@ -8,6 +11,9 @@
   --window-titlebar-background: #8BDEDF;
   --window-titlebar-highlights: #F2FCFC;     
 }
+
+/*********************************************************************/
+/* BASE */
 
 * {
   box-sizing: border-box;
@@ -23,6 +29,9 @@ body {
   justify-content: center;
   align-items: center;
 }
+
+/*********************************************************************/
+/* BACKGROUND */
 
 .background-images {
   position: fixed;
@@ -85,6 +94,9 @@ body {
   font-weight: 500;
 }
 
+/*********************************************************************/
+/* DESKTOP */
+
 .desktop {
   width: 100%;
   height: 100%;
@@ -93,22 +105,8 @@ body {
   flex-direction: column;
 }
 
-#graph-container {
-  flex: 1;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 8px;
-  overflow: hidden;
-  position: relative;
-}
 
-#graphCanvas {
-  width: 100%;
-  height: 100%;
-  image-rendering: pixelated;
-}
+/* DESKTOP-BAR */
 
 .desktop-bar {
   height: 48px;
@@ -132,6 +130,9 @@ body {
   justify-self: start; 
 }
 
+
+/* DESKTOP-MAIN */
+
 .desktop-main {
   flex: 1;
   display: flex;
@@ -139,6 +140,10 @@ body {
   align-items: center;
   padding: 16px;
 }
+
+
+/*********************************************************************/
+/* WINDOW */
 
 .app-window {
   width: min(850px, 100%);
@@ -152,7 +157,10 @@ body {
   overflow: hidden;
 }
 
-.app-titlebar {
+
+/* WINDOW-TITLEBAR */
+
+.window-titlebar {
   height: 40px;
   background: var(--window-titlebar-background);
   border-bottom: 3px solid var(--window-border);
@@ -161,15 +169,6 @@ body {
   padding: 0 12px 14px 0;
   color: #9ca3af;
   position: relative;
-}
-
-.app-content {
-  flex: 1;
-  background: var(--window-content-background);
-  padding: 12px;
-  display: flex;
-  gap: 12px;
-  flex-direction: column;
 }
 
 .window-highlights {
@@ -232,6 +231,38 @@ body {
 .window-btn.maximize {
   background: var(--window-titlebar-buttons);
 }
+
+
+/* WINDOW-CONTENT */
+
+.app-content {
+  flex: 1;
+  background: var(--window-content-background);
+  padding: 12px;
+  display: flex;
+  gap: 12px;
+  flex-direction: column;
+}
+
+#graph-container {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+}
+
+#graphCanvas {
+  width: 100%;
+  height: 100%;
+  image-rendering: pixelated;
+}
+
+
+/* WINDOW-CONTROLS & STATS */
 
 .information-bar {
   display: flex;
