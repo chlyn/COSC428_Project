@@ -1,4 +1,12 @@
-// maze.js
+
+// key for maze
+// # = wall
+// S = start
+// G = goal
+// . = light cost
+// ~ = higher cost
+// (space) = normal walkable tile
+
 export const MAP = [
   "###########################",
   "#S   ###   ~~  ###      .##",
@@ -17,10 +25,12 @@ export const MAP = [
   "###########################",
 ];
 
+// Return number of rows + columns in the map
 export function getDims(map = MAP) {
   return { rows: map.length, cols: map[0].length };
 }
 
+// Search the map for the FIRST occurrence of a given character (as in the start or goal)
 export function findChar(map, ch) {
   const { rows, cols } = getDims(map);
   for (let r = 0; r < rows; r++) {
@@ -38,10 +48,13 @@ export function isWalkable(map, r, c) {
   return ch === " " || ch === "S" || ch === "G" || ch === "." || ch === "~";
 }
 
+// Assign step cost based on tile type
+// Normal = 1, HIgher cost (~) = 5
 export function getCellWeight(ch) {
   return ch === "~" ? 5 : 1;
 }
 
+// making sure the canvas fits the window
 export function resizeCanvasToContainer({ canvas, container, map = MAP }) {
   const { rows, cols } = getDims(map);
   const rect = container.getBoundingClientRect();
@@ -56,6 +69,7 @@ export function resizeCanvasToContainer({ canvas, container, map = MAP }) {
   return { cellSize, rows, cols };
 }
 
+// Draws walls, open space, start point, and goal image
 export function drawMaze({ ctx, canvas, cellSize, map = MAP, goalImg, goalReady }) {
   const { rows, cols } = getDims(map);
 
