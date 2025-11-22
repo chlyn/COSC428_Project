@@ -523,9 +523,22 @@ body {
 
 .stats {
   display: flex;
-  gap: 16px;        
-  font-size: 15px;
+  gap: 16px;
+  flex-wrap: wrap;
+  row-gap: 6px;        
+  font-size: 14px;
   color: #2C508C; 
   font-weight: 500;
   padding-bottom: 8px;
+  padding-left: 20px;
+}
+
+.stats-complexities{
+  display: flex;
+  gap: 16px;
+}
+
+.stats-stats{
+  display: flex;
+  gap: 16px;
 }
