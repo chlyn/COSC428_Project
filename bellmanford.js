@@ -1,4 +1,4 @@
-function bellmanFordPath(MAP, startPos, goalPos) {
+export function bellmanFordPath(MAP, startPos, goalPos) {
   const rows = MAP.length;
   const cols = MAP[0].length;
   const totalCells = rows * cols;
@@ -25,6 +25,12 @@ function bellmanFordPath(MAP, startPos, goalPos) {
     const ch = MAP[row][col];
     return ch !== "#";
   }
+
+
+function getCellWeight(ch) {
+  if (ch === "~") return 5;
+  return 1;
+}
 
 const edges = [];
 

@@ -5,8 +5,24 @@ const ctx = canvas.getContext("2d");
 const runBtn = document.getElementById("runBtn");
 const pauseBtn = document.getElementById("pauseBtn");
 
+import { bellmanFordPath } from "./bellmanford.js";
+
 let isPaused = false;
 let isRunning = false;
+
+import {
+  MARIO_FRAMES,
+  JUMP_FRAMES,
+  marioSheet,
+  marioJumpSheet,
+  marioReady,
+  marioJumpReady,
+  resetMarioFrames,
+  advanceMarioFrames,
+  advanceMarioFramesOnce,
+  drawMario
+} from "./mario.js";
+
 
 pauseBtn.addEventListener("click", () => {
   if (!isRunning) return;
@@ -136,46 +152,46 @@ function drawMaze() {
 }
 
 function startAnimation(exploredCells, pathCells) {
-  // reset animation flags
   isPaused = false;
   isRunning = true;
   pauseBtn.textContent = "Pause";
 
-  // build the animation state
+  // reset mario animation counters
+  resetMarioFrames();
+
   animationState = {
     phase: "exploringMaze",
-    exploredCells: exploredCells,
-    pathCells: pathCells,
+    exploredCells,
+    pathCells,
+
     currentExploreIndex: 0,
     currentPathIndex: 0,
 
     lastFrameTime: 0,
-
     exploreDelay: 15,
-    pathDelay: 120
+    pathDelay: 120,
+
+    // celebration settings
+    celebrationStartTime: null,
+    celebrationDuration: 1200
   };
 
   requestAnimationFrame(animationLoop);
 }
 
-
 function animationLoop(timestamp) {
-  // Stop if paused or finished
   if (!animationState || isPaused) return;
 
   const state = animationState;
-
   const timeSinceLastFrame = timestamp - state.lastFrameTime;
 
-  // Showing the exploration order
   if (state.phase === "exploringMaze") {
-
     if (timeSinceLastFrame >= state.exploreDelay) {
       state.lastFrameTime = timestamp;
 
       drawMaze();
 
-      // Shade every explored cell so far
+      // shade explored cells so far
       for (
         let exploreIndex = 0;
         exploreIndex <= state.currentExploreIndex &&
@@ -183,7 +199,6 @@ function animationLoop(timestamp) {
         exploreIndex++
       ) {
         const exploredCell = state.exploredCells[exploreIndex];
-
         const pixelX = exploredCell.c * cellSize;
         const pixelY = exploredCell.r * cellSize;
 
@@ -193,7 +208,7 @@ function animationLoop(timestamp) {
 
       state.currentExploreIndex++;
 
-      // Done exploring di move on to path drawing
+      // finished exploring so move to path animation
       if (state.currentExploreIndex >= state.exploredCells.length) {
         state.phase = "drawingShortestPath";
         state.lastFrameTime = timestamp;
@@ -201,18 +216,16 @@ function animationLoop(timestamp) {
     }
   }
 
-  // Animating the shortest path
+  // Shortest path animation (Mario runs)
   else if (state.phase === "drawingShortestPath") {
-
     if (timeSinceLastFrame >= state.pathDelay) {
       state.lastFrameTime = timestamp;
 
       drawMaze();
 
-      // Draw faint exploration shading behind the path
+      // faint exploration shading stays visible
       for (let i = 0; i < state.exploredCells.length; i++) {
         const exploredCell = state.exploredCells[i];
-
         const pixelX = exploredCell.c * cellSize;
         const pixelY = exploredCell.r * cellSize;
 
@@ -220,32 +233,72 @@ function animationLoop(timestamp) {
         ctx.fillRect(pixelX, pixelY, cellSize, cellSize);
       }
 
-      // Draw mario at the current step of the path
-      // todo: replace with mario lololol
       const currentPathCell = state.pathCells[state.currentPathIndex];
-      const pixelX = currentPathCell.c * cellSize;
-      const pixelY = currentPathCell.r * cellSize;
 
-      ctx.fillStyle = "white";
-      ctx.beginPath();
-      ctx.arc(
-        pixelX + cellSize / 2,
-        pixelY + cellSize / 2,
-        cellSize * 0.30,
-        0,
-        Math.PI * 2
-      );
-      ctx.fill();
+      if (currentPathCell && marioReady) {
+        const pixelX = currentPathCell.c * cellSize;
+        const pixelY = currentPathCell.r * cellSize;
+
+        const drawSize = cellSize * 0.9;
+        const drawX = pixelX + (cellSize - drawSize) / 2;
+        const drawY = pixelY + (cellSize - drawSize) / 2;
+
+        const frame = advanceMarioFrames(MARIO_FRAMES);
+        drawMario(ctx, marioSheet, frame, drawX, drawY, drawSize);
+        
+      }
 
       state.currentPathIndex++;
 
-      // Finished walking the path
+      // if we finished the path then start celebration
       if (state.currentPathIndex >= state.pathCells.length) {
-        isRunning = false;
-        animationState = null;
-        pauseBtn.textContent = "Pause";
-        return;
+        state.phase = "goalCelebration";
+        state.celebrationStartTime = timestamp;
+
+        resetMarioFrames();
+
+       return requestAnimationFrame(animationLoop);
       }
+    }
+  }
+
+  // Celebration (Mario jumps at goal)
+  // this is a bit wonky
+  // may update the phases to avoid reusing so much code
+  else if (state.phase === "goalCelebration") {
+    drawMaze();
+
+    // faint exploration shading again
+    for (let i = 0; i < state.exploredCells.length; i++) {
+      const exploredCell = state.exploredCells[i];
+      const pixelX = exploredCell.c * cellSize;
+      const pixelY = exploredCell.r * cellSize;
+
+      ctx.fillStyle = "rgba(140, 100, 255, 0.20)";
+      ctx.fillRect(pixelX, pixelY, cellSize, cellSize);
+    }
+
+    const goalCell = state.pathCells[state.pathCells.length - 1];
+
+    if (goalCell && marioJumpReady) {
+      const pixelX = goalCell.c * cellSize;
+      const pixelY = goalCell.r * cellSize;
+
+      const drawSize = cellSize * 0.9;
+      const drawX = pixelX + (cellSize - drawSize) / 2;
+      const drawY = pixelY + (cellSize - drawSize) / 2;
+
+      const frame = advanceMarioFramesOnce(JUMP_FRAMES);
+      drawMario(ctx, marioJumpSheet, frame, drawX, drawY, drawSize);
+    }
+
+    // stop celebration after duration
+    const celebrationElapsed = timestamp - state.celebrationStartTime;
+    if (celebrationElapsed >= state.celebrationDuration) {
+      isRunning = false;
+      animationState = null;
+      pauseBtn.textContent = "Pause";
+      return;
     }
   }
 
