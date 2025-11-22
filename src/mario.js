@@ -8,12 +8,12 @@ export const MARIO_FRAME_SPEED = 4;
 export const JUMP_FRAMES = 2;
 
 export const marioSheet = new Image();
-marioSheet.src = "assets/mario-sprite-sheets/mario.png";
+marioSheet.src = "./assets/mario-sprite-sheets/mario.png";
 export let marioReady = false;
 marioSheet.onload = () => marioReady = true;
 
 export const marioJumpSheet = new Image();
-marioJumpSheet.src = "assets/mario-sprite-sheets/mario-fire.png";
+marioJumpSheet.src = "./assets/mario-sprite-sheets/mario-fire.png";
 export let marioJumpReady = false;
 marioJumpSheet.onload = () => marioJumpReady = true;
 
