@@ -10,6 +10,15 @@ import { bellmanFordPath } from "./bellmanford.js";
 let isPaused = false;
 let isRunning = false;
 
+const goalImage = new Image();
+goalImage.src = "assets/icons/goal.png";
+let goalReady = false;
+
+goalImage.onload = () => {
+  goalReady = true;
+  console.log("goal image loaded");
+};
+
 import {
   MARIO_FRAMES,
   JUMP_FRAMES,
@@ -22,7 +31,6 @@ import {
   advanceMarioFramesOnce,
   drawMario
 } from "./mario.js";
-
 
 pauseBtn.addEventListener("click", () => {
   if (!isRunning) return;
@@ -135,18 +143,14 @@ function drawMaze() {
         ctx.fill();
       }
 
-      if (ch === "G") {
-        ctx.fillStyle = "rgb(255,120,180)";  
-        ctx.beginPath();
-        ctx.arc(
-          x + cellSize / 2,
-          y + cellSize / 2,
-          cellSize * 0.3,
-          0,
-          Math.PI * 2
-        );
-        ctx.fill();
+      if (ch === "G" && goalReady) {
+        const size = cellSize * 0.9;
+        const drawX = x + (cellSize - size) / 2;
+        const drawY = y + (cellSize - size) / 2;
+
+        ctx.drawImage(goalImage, drawX, drawY, size, size);
       }
+
     }
   }
 }
