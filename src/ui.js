@@ -6,7 +6,7 @@ export function wirePauseButton(pauseBtn, animator) {
   });
 }
 
-export function wireRunButton(runBtn, algoSelect, runAlgorithm, animator) {
+export function wireRunButton(runBtn, algoSelect, runAlgorithm, animator, onStatsReady) {
   runBtn.addEventListener("click", () => {
     const algo = algoSelect.value;
     const result = runAlgorithm(algo);
@@ -15,6 +15,12 @@ export function wireRunButton(runBtn, algoSelect, runAlgorithm, animator) {
       alert("No path found.");
       return;
     }
+
+    // hide stats while exploring
+    if (onStatsReady) onStatsReady(null);
+
+    animator.pendingStats = result.stats;
+
     animator.startAnimation(result.explored, result.path);
   });
 }
@@ -33,4 +39,23 @@ export function startDesktopClock(dateEl, timeEl) {
 
   updateDateTime();
   setInterval(updateDateTime, 1000);
+}
+
+export function updateComplexityUI(timeValEl, spaceValEl, algo) {
+  const COMPLEXITIES = {
+    dijkstra: {
+      time: "O(E log V)",
+      space: "O(V)"
+    },
+    bellmanford: {
+      time: "O(VE)",
+      space: "O(V)"
+    }
+  };
+
+  const c = COMPLEXITIES[algo];
+  if (!c) return;
+
+  timeValEl.textContent = c.time;
+  spaceValEl.textContent = c.space;
 }

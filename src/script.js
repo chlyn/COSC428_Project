@@ -1,4 +1,3 @@
-
 import { bellmanFordPath } from "./algorithms/bellmanford.js";
 import {
   MARIO_FRAMES,
@@ -13,9 +12,9 @@ import {
   drawMario
 } from "./mario.js";
 
-import { MAP, findChar, resizeCanvasToContainer, drawMaze } from "./maze.js";
+import { MAP, findChar, resizeCanvasToContainer, drawMaze, getCellWeight } from "./maze.js";
 import { createAnimator } from "./animation.js";
-import { wirePauseButton, wireRunButton, startDesktopClock } from "./ui.js";
+import { wirePauseButton, wireRunButton, startDesktopClock, updateComplexityUI  } from "./ui.js";
 
 // ------- DOM -------
 const canvas = document.getElementById("graphCanvas");
@@ -25,6 +24,26 @@ const ctx = canvas.getContext("2d");
 const runBtn = document.getElementById("runBtn");
 const pauseBtn = document.getElementById("pauseBtn");
 const algoSelect = document.getElementById("algoSelect");
+
+// algo stats (theoretical)
+const timeStatEl = document.getElementById("timeStat");
+const spaceStatEl = document.getElementById("spaceStat");
+
+// algo stats (measured)
+const runtimeStatEl = document.getElementById("runtimeStat");
+const exploredStatEl = document.getElementById("exploredStat");
+const pathLenStatEl = document.getElementById("pathLenStat");
+const pathCostStatEl = document.getElementById("pathCostStat");
+
+const runtimeValEl = document.getElementById("runtimeVal");
+const exploredValEl = document.getElementById("exploredVal");
+const pathLenValEl = document.getElementById("pathLenVal");
+const pathCostValEl = document.getElementById("pathCostVal");
+
+const timeValEl = document.getElementById("timeVal");
+const spaceValEl = document.getElementById("spaceVal");
+
+
 
 // ------- Images -------
 const goalImage = new Image();
@@ -55,7 +74,38 @@ function resizeAndRedraw() {
 const drawMazeNow = () =>
   drawMaze({ ctx, canvas, cellSize, map: MAP, goalImg: goalImage, goalReady });
 
+// ------- Helpers for stats -------
+function computePathCost(path) {
+  if (!path || path.length === 0) return 0;
+
+  let cost = 0;
+  for (let i = 1; i < path.length; i++) {
+    const { r, c } = path[i];
+    cost += getCellWeight(MAP[r][c]);
+  }
+  return cost;
+}
+
+function showStats(stats) {
+  if (!stats) {
+    runtimeValEl.textContent  = "— ms";
+    exploredValEl.textContent = "—";
+    pathLenValEl.textContent  = "—";
+    pathCostValEl.textContent = "—";
+    return;
+  }
+
+  runtimeValEl.textContent  = `${stats.runtimeMs.toFixed(2)} ms`;
+  exploredValEl.textContent = stats.exploredCount;
+  pathLenValEl.textContent  = stats.pathLength;
+  pathCostValEl.textContent = stats.pathCost;
+}
+
+
 // ------- Animator -------
+// show measured stats exactly when shortest-path drawing begins.
+let lastResult = null;
+
 const animator = createAnimator({
   ctx,
   canvas,
@@ -74,23 +124,53 @@ const animator = createAnimator({
     advanceMarioFrames,
     advanceMarioFramesOnce,
     drawMario
-  }
+  },
+
+  onShortestPathStart: () => {
+  if (animator.pendingStats) showStats(animator.pendingStats);
+}
 });
 
+animator.pendingStats = null;
 
 // ------- Algorithm runner -------
 function runAlgorithm(algoName) {
+  const t0 = performance.now();
+
+  let result;
   if (algoName === "dijkstra") {
-    return dijkstraPath(MAP, start, goal);
+    result = dijkstraPath(MAP, start, goal);
+  } else {
+    result = bellmanFordPath(MAP, start, goal);
   }
-  return bellmanFordPath(MAP, start, goal);
+
+  // measuring tiles and time taken
+  const t1 = performance.now();
+  const runtimeMs = t1 - t0;
+
+  result.stats = result?.path ? {
+    runtimeMs,
+    exploredCount: result.explored.length,
+    pathLength: result.path.length,
+    pathCost: computePathCost(result.path)
+  } : { runtimeMs };
+
+  return result;
 }
 
+
+// ------- Wire UI -------
 wirePauseButton(pauseBtn, animator);
-wireRunButton(runBtn, algoSelect, runAlgorithm, animator);
+wireRunButton(runBtn, algoSelect, runAlgorithm, animator, showStats);
 
 window.addEventListener("load", resizeAndRedraw);
 window.addEventListener("resize", resizeAndRedraw);
+
+updateComplexityUI(timeValEl, spaceValEl, algoSelect.value);
+
+algoSelect.addEventListener("change", () => {
+  updateComplexityUI(timeValEl, spaceValEl, algoSelect.value);
+});
 
 startDesktopClock(
   document.getElementById("date"),

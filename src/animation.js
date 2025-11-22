@@ -1,9 +1,9 @@
-
 export function createAnimator({
   ctx,
   drawMaze,
   cellSizeRef,
   marioAssets,
+  onShortestPathStart,
 }) {
   let animationState = null;
   let isPaused = false;
@@ -25,7 +25,8 @@ export function createAnimator({
       exploreDelay: 15,
       pathDelay: 120,
       celebrationStartTime: null,
-      celebrationDuration: 1200
+      celebrationDuration: 1200,
+      statsRevealed: false,
     };
 
     requestAnimationFrame(animationLoop);
@@ -54,6 +55,12 @@ export function createAnimator({
         if (state.currentExploreIndex >= state.exploredCells.length) {
           state.phase = "drawingShortestPath";
           state.lastFrameTime = timestamp;
+
+          // console.log("SHORT PATH START");
+          if (!state.statsRevealed && typeof onShortestPathStart === "function") {
+            state.statsRevealed = true;
+            onShortestPathStart();
+          }
         }
       }
     }
@@ -69,9 +76,9 @@ export function createAnimator({
           ctx.fillRect(c * cellSize, r * cellSize, cellSize, cellSize);
         }
 
-        console.log("READY?", marioAssets.marioReady);
-        console.log("ADV?", typeof marioAssets.advanceMarioFrames);
-        console.log("DRAW?", typeof marioAssets.drawMario);
+        // console.log("READY?", marioAssets.marioReady);
+        // console.log("ADV?", typeof marioAssets.advanceMarioFrames);
+        // console.log("DRAW?", typeof marioAssets.drawMario);
 
         const current = state.pathCells[state.currentPathIndex];
         if (current && marioAssets.marioReady) {
