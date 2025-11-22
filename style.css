@@ -36,13 +36,14 @@ body {
 /*********************************************************************/
 /* BACKGROUND */
 
+/* BACKGROUND-IMAGES */
 .background-images {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh; 
-  z-index: -1;   
+  z-index: -3;   
   overflow: hidden;
   pointer-events: none; 
 }
@@ -63,6 +64,146 @@ body {
   height: 1200px;
 }
 
+
+/* BACKGROUND-OBJECTS */
+
+.background-objects {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -2;            
+  pointer-events: none;
+}
+
+.bg-object {
+  position: absolute;
+  object-fit: contain;
+}
+
+.cloud-1 {
+  top: -40px;
+  left: 80%;
+  width: auto;
+  height: 200px;
+}
+
+.cloud-2 {
+  top: 130px;
+  left: 15%;
+  width: auto;
+  height: 100px;
+}
+
+.cloud-3 {
+  top: 110px;
+  left: 26%;
+  width: auto;
+  height: 110px;
+}
+
+.cloud-4 {
+  top: 400px;
+  left: 75%;
+  width: auto;
+  height: 100px;
+}
+
+.cloud-5 {
+  top: 500px;
+  left: -8%;
+  width: auto;
+  height: 160px;
+}
+
+.cloud-6 {
+  top: 650px;
+  left: 92%;
+  width: auto;
+  height: 90px;
+}
+
+.mountain-1 {
+  top: 86%;
+  left: -2%;
+  width: auto;
+  height: 150px;
+}
+
+.mountain-1 {
+  bottom: -10px;
+  left: -2%;
+  width: auto;
+  height: 150px;
+}
+
+.mountain-2 {
+  bottom: -10px;
+  left: 22%;
+  width: auto;
+  height: 150px;
+}
+
+.mountain-3 {
+  bottom: -10px;
+  left: 46%;
+  width: auto;
+  height: 150px;
+}
+
+.mountain-4 {
+  bottom: -10px;
+  left: 75%;
+  width: auto;
+  height: 150px;
+}
+
+.star-1 {
+  top: 30px;
+  left: 75%;
+  width: auto;
+  height: 90px;
+}
+
+.star-2 {
+  top: 40px;
+  left: 35%;
+  width: auto;
+  height: 100px;
+}
+
+.star-3 {
+  top: 340px;
+  left: 85%;
+  width: auto;
+  height: 100px;
+}
+
+.star-4 {
+  top: 480px;
+  left: 10%;
+  width: auto;
+  height: 100px;
+}
+
+.star-5 {
+  top: 730px;
+  left: 4%;
+  width: auto;
+  height: 80px;
+}
+
+.star-6 {
+  top: 750px;
+  left: 82%;
+  width: auto;
+  height: 70px;
+}
+
+
+/* BACKGROUND-APPS */
+
 .background-apps {
   position: fixed;
   top: 80px;   
@@ -70,9 +211,9 @@ body {
   display: grid;
   grid-template-columns: repeat(2, 80px);  
   grid-auto-rows: 110px;                   
-  gap: 0 16px;               
-  pointer-events: none; 
-  z-index: -1;          
+  gap: 0 16px; 
+  z-index: -1;              
+  pointer-events: none;           
 }
 
 .bg-app {
