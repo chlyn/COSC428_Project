@@ -1,19 +1,23 @@
+// ------- VARIABLES ------- //
 
+// Current frame Mario is displaying and a timer when to switch frames
 export let marioFrameIndex = 0;
 export let marioFrameTick = 0;
 
+// Counts number or frames and speed each frame changes
 export const MARIO_FRAMES = 3;
 export const MARIO_FRAME_SPEED = 4;
-
 export const JUMP_FRAMES = 2;
 
+// Loading sprite images of Mario running
 export const marioSheet = new Image();
-marioSheet.src = "assets/mario-sprite-sheets/mario.png";
+marioSheet.src = "./assets/mario-sprite-sheets/mario.png";
 export let marioReady = false;
 marioSheet.onload = () => marioReady = true;
 
+// Loading sprite images of Mario celebrating/jumping
 export const marioJumpSheet = new Image();
-marioJumpSheet.src = "assets/mario-sprite-sheets/mario-fire.png";
+marioJumpSheet.src = "./assets/mario-sprite-sheets/mario-fire.png";
 export let marioJumpReady = false;
 marioJumpSheet.onload = () => marioJumpReady = true;
 
@@ -23,7 +27,7 @@ export function resetMarioFrames() {
   marioFrameTick = 0;
 }
 
-// helper to draw mario
+// Helper to draw mario on canvas
 export function drawMario(ctx, sheet, frame, x, y, size) {
   const frames = (sheet === marioJumpSheet) ? JUMP_FRAMES : MARIO_FRAMES;
   const frameWidth = sheet.width / frames;
@@ -36,7 +40,7 @@ export function drawMario(ctx, sheet, frame, x, y, size) {
   );
 }
 
-// for normal run
+// Animating Mario running
 export function advanceMarioFrames(totalFrames) {
   marioFrameTick++;
 
@@ -48,7 +52,7 @@ export function advanceMarioFrames(totalFrames) {
   return marioFrameIndex;
 }
 
-// for celebration
+// Animating Mario celebrating/jumping
 export function advanceMarioFramesOnce(totalFrames) {
   marioFrameTick++;
 

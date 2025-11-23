@@ -9,7 +9,10 @@
   --desktopbar-border: #2C508C;
   --desktopbar-text: #2C508C;
   --window-border: #2C508C;   
-  --window-content-background: #CAEFE6;  
+  --window-content-background: #CAEFE6;
+  --window-controlbar-text: #2C508C;
+  --window-stat-text: #57cbcd;
+  --window-titlebar-text: #2C508C;  
   --window-titlebar-buttons: #2C508C;   
   --window-titlebar-background: #8BDEDF;
   --window-titlebar-highlights: #F2FCFC;     
@@ -122,13 +125,6 @@ body {
   left: 92%;
   width: auto;
   height: 90px;
-}
-
-.mountain-1 {
-  top: 86%;
-  left: -2%;
-  width: auto;
-  height: 150px;
 }
 
 .mountain-1 {
@@ -351,7 +347,6 @@ body {
   display: flex;
   align-items: center;
   padding: 0 12px 14px 0;
-  color: #9ca3af;
   position: relative;
 }
 
@@ -384,9 +379,9 @@ body {
 .window-title {
   position: relative;
   margin-right: auto;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 500;
-  color: #2C508C; 
+  color: var(--window-titlebar-text); 
   display: flex;
   padding-top: 14px;
   padding-left: 12px;
@@ -448,84 +443,157 @@ body {
 
 /* WINDOW-CONTROLS & STATS */
 
-.information-bar {
+.control-bar {
   display: flex;
-  align-items: end;
+  align-items: center;
   justify-content: space-between;
 }
+
+
+/* CONTROLS */
 
 .controls { 
   display: flex; 
   flex-direction: column; 
-  gap: 12px; 
+  gap: 4px; 
   font-size: 13px; 
+  align-items: start;
 }
 
+
+/* CONTROLS-DROPDOWN */
+
 .control-label { 
-  color: #111827; 
+  text-transform: uppercase;
+  color: var(--window-controlbar-text); 
   font-size: 13px; 
+  font-weight: 500;
 }
 
 .controls-container { 
   display: flex; 
   flex-direction: row; 
   gap: 5px; 
-  align-items: center; 
 }
 
 .algoSelect-container { 
-  display: flex; 
+  position: relative;
+  width: 270px;     
+  height: 40px;
+  display: flex;
+}
+
+.algo-select-img {
+  width: 270px;
+  height: 40px;
+  image-rendering: pixelated;
+  pointer-events: none; 
 }
 
 #algoSelect {
-  padding: 6px; 
-  border-radius: 6px; 
-  border: 1px solid #475569; 
-  background: #111827; 
-  color: #e5e7eb; 
+  position: absolute;
+  inset: 0;            
+  opacity: 0;    
+  cursor: pointer;
+  border: none;
+  background: transparent;
 }
 
-#algoSelect:focus { 
-  outline: none; 
-  border-color: #3b82f6; 
+.algoSelect-container:hover .algo-dropdown {
+  transform: scale(1.021);
+  filter: brightness(1.15);
 }
+
+.algoSelect-container:active .algo-dropdown {
+  transform: scale(0.92);
+}
+
+
+/* CONTROLS-BUTTONS */
 
 .algoBtns-container { 
   gap: 5px; 
   display: flex; 
 }
 
-#runBtn { 
-  padding: 8px 10px; 
-  border-radius: 6px; 
-  border: 1px solid #4b5563; 
-  background: #1e293b; 
-  color: #e5e7eb; 
-  cursor: pointer; 
+.algo-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  outline: none;
 }
 
-#runBtn:hover { 
-  background: #334155; 
+.algo-btn img {
+  width: 40px;     
+  height: 40px;    
+  image-rendering: pixelated;
+  cursor: pointer;
+
+  transition: transform 0.15s ease, filter 0.15s ease;
 }
 
-#pauseBtn { 
-  padding: 8px 10px; 
-  border-radius: 6px; 
-  border: 1px solid #4b5563; 
-  background: #1e293b; 
-  color: #e5e7eb; 
-  cursor: pointer; 
+.algo-btn img:hover {
+  transform: scale(1.07);
+  filter: brightness(1.15);
 }
 
-#pauseBtn:hover { 
-  background: #334155; 
+.algo-btn img:active {
+  transform: scale(0.92);
 }
+
+.algo-btn[disabled] {
+  pointer-events: none;
+}
+
+.algo-btn[disabled] img {
+  opacity: 0.50;
+  transform: none;
+}
+
+
+/* STATS */
 
 .stats {
   display: flex;
-  gap: 16px;        
-  font-size: 15px;
-  color: #2C508C; 
+  gap: 16px;      
+}
+
+.stats-column {
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 120px;   
+}
+
+.stats-column.complexity {
+  flex-basis: 120px;
+}
+
+.stats-column.metrics {
+  flex-basis: 120px;
+}
+
+.stats-column.path {
+  flex-basis: 100px;
+}
+
+.stats-heading {
+  text-transform: uppercase;
+  padding-bottom: 4px;
+  color: var(--window-controlbar-text);
+  font-size: 13px;
   font-weight: 500;
-  padding-bottom: 8px;
+}
+
+.stats-column span b {
+  color: var(--window-controlbar-text);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.stats-column span span {
+  color: var(--window-stat-text);
+  font-size: 13px;
+  font-weight: 700;
 }
