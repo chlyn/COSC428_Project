@@ -36,6 +36,26 @@ body {
   align-items: center;
 }
 
+html,
+body,
+.desktop,
+.app-window,
+#graph-container,
+#graphCanvas {
+  cursor: url("assets/cursor/cursor.png") 0 0, auto;
+  image-rendering: pixelated;
+}
+
+button:hover,
+button:hover * {
+  cursor: url("assets/cursor/pointer.png") 0 0, pointer !important;
+  image-rendering: pixelated;
+}
+
+#algoSelect:hover {
+  cursor: url("assets/cursor/pointer.png") 0 0, pointer !important;
+}
+
 /*********************************************************************/
 /* BACKGROUND */
 
@@ -499,12 +519,12 @@ body {
   background: transparent;
 }
 
-.algoSelect-container:hover .algo-dropdown {
+.algoSelect-container:hover .algo-select-img {
   transform: scale(1.021);
   filter: brightness(1.15);
 }
 
-.algoSelect-container:active .algo-dropdown {
+.algoSelect-container:active .algo-select-img {
   transform: scale(0.92);
 }
 
