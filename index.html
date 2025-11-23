@@ -11,6 +11,7 @@
   <!-- BACKGROUND-IMAGES -->
   <div class="background-images">
 
+    <!-- Color style background top and bottom -->
     <img src="assets/background/background-top.png" class="bg-img top">
     <img src="assets/background/background-bottom.png" class="bg-img bottom">
 
@@ -19,6 +20,7 @@
   <!-- BACKGROUND-OBJECTS -->
   <div class="background-objects">
 
+    <!-- Clounds -->
     <img src="assets/background/cloud_1.png" class="bg-object cloud cloud-1">
     <img src="assets/background/cloud_3.png" class="bg-object cloud cloud-2">
     <img src="assets/background/cloud_2.png" class="bg-object cloud cloud-3">
@@ -26,11 +28,13 @@
     <img src="assets/background/cloud_1.png" class="bg-object cloud cloud-5">
     <img src="assets/background/cloud_2.png" class="bg-object cloud cloud-6">
 
+    <!-- Mountains -->
     <img src="assets/background/mountain_1.png" class="bg-object cloud mountain-1">
     <img src="assets/background/mountain_1.png" class="bg-object cloud mountain-2">
     <img src="assets/background/mountain_2.png" class="bg-object cloud mountain-3">
     <img src="assets/background/mountain_1.png" class="bg-object cloud mountain-4">
 
+    <!-- Stars -->
     <img src="assets/background/stars_1.png" class="bg-object cloud star-1">
     <img src="assets/background/stars_1.png" class="bg-object cloud star-2">
     <img src="assets/background/stars_2.png" class="bg-object cloud star-3">
@@ -43,26 +47,31 @@
   <!-- BACKGROUND-APPS -->
   <div class="background-apps">
 
+    <!-- Projects Folder -->
     <div class="bg-app">
       <img src="assets/icons/folder.png">
       <span>Projects</span>
     </div>
 
+    <!-- Trash -->
     <div class="bg-app">
       <img src="assets/icons/trash.png">
       <span>Trash</span>
     </div>
 
+    <!-- Playlist Folder -->
     <div class="bg-app">
       <img src="assets/icons/folder.png">
       <span>Playlist</span>
     </div> 
 
+    <!-- Notes Folder -->
     <div class="bg-app">
       <img src="assets/icons/folder.png">
       <span>Notes</span>
     </div>
 
+    <!-- Games -->
     <div class="bg-app">
       <img src="assets/icons/games.png">
       <span>Games</span>
@@ -72,7 +81,6 @@
 
 
   <!-- DESKTOP -->
-
   <div class="desktop">
 
     <!-- DESKTOP-BAR -->
@@ -101,12 +109,20 @@
     <!-- DESKTOP-CONTENT -->
     <main class="desktop-main">
       <div class="app-window">
+
+        <!-- WINDOW-TITLEBAR -->
         <div class="window-titlebar">
+
+          <!-- White UI highlights for the top and left side -->
           <div class="window-highlights">
             <span class="window-highlight top"></span>
             <span class="window-highlight left-side"></span>
           </div>
+
+          <!-- Text title -->
           <div class="window-title">Algorithm Visualizer</div>
+
+          <!-- Fake window buttons -->
           <div class="window-buttons">
             <span class="window-btn close"></span>
             <span class="window-btn minimize"></span>
@@ -114,45 +130,71 @@
           </div>
         </div>
 
+        <!-- WINDOW-CONTENT -->
         <div class="app-content">
-            <div id="graph-container">
-                <canvas id="graphCanvas"></canvas>
-            </div>
 
+          <!-- Graph animation -->
+          <div id="graph-container">
+              <canvas id="graphCanvas"></canvas>
+          </div>
+
+          <!-- Control Bar -->
           <div class="control-bar">
+
+            <!-- Controls for algorithm and run/pause -->
             <div class="controls">
+
+              <!-- Dropdown text label and all controls -->
               <span class="control-label">Algorithm</span>
               <div class="controls-container">
+                
+                <!-- Dropdown -->
                 <div class="algoSelect-container">
+
+                  <!-- UI dropdown image -->
+                  <img id="algoSelectImg" src="assets/buttons/select.png" alt="Select algorithm" class="algo-select-img">
+
+                  <!-- Options for dropdown -->
                   <select id="algoSelect">
+                    <option value="" selected disabled>Select algorithm</option>
                     <option value="dijkstra">Dijkstra</option>
                     <option value="bellmanford">Bellman-Ford</option>
                   </select>
+
                 </div>
+
+                <!-- Run/Replay and Pause Buttons -->
                 <div class="algoBtns-container">
-                  <button id="runBtn" class="algo-btn">
+
+                  <button id="runBtn" class="algo-btn" disabled>
                     <img src="assets/buttons/run.png" alt="Run">
                   </button>
 
                   <button id="pauseBtn" class="algo-btn" disabled>
                     <img src="assets/buttons/pause.png" alt="Pause">
                   </button>
+
                 </div>
+
               </div>
+
             </div>
 
+            <!-- Stats for time/space complexity, runtime, paths explored/cost/length-->
             <div class="stats">
 
+              <!-- Time & Space Complexity -->
               <div class="stats-column complexity">
                 <div class="stats-heading">Complexity</div>
                 <span id="timeStat">
-                  <b>Time:</b> <span id="timeVal">placeholder</span>
+                  <b>Time:</b> <span id="timeVal">—</span>
                 </span>
                 <span id="spaceStat">
-                  <b>Memory:</b> <span id="spaceVal">placeholder</span>
+                  <b>Memory:</b> <span id="spaceVal">—</span>
                 </span>
               </div>
 
+              <!-- Runtime & Paths Explored Metrics -->
               <div class="stats-column metrics">
                 <div class="stats-heading">Metrics</div>
                 <span id="runtimeStat">
@@ -163,6 +205,7 @@
                 </span>
               </div>
 
+              <!-- Path Length & Cost -->
               <div class="stats-column path">
                 <div class="stats-heading">Path</div>
                 <span id="pathLenStat">
@@ -176,12 +219,17 @@
             </div>
 
           </div>
+
         </div>
+
       </div>
+
     </main>
+
   </div>
 
   <script type="module" src="src/script.js"></script>
 
 </body>
+
 </html>
