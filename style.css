@@ -36,6 +36,26 @@ body {
   align-items: center;
 }
 
+html,
+body,
+.desktop,
+.app-window,
+#graph-container,
+#graphCanvas {
+  cursor: url("assets/cursor/cursor.png") 0 0, auto;
+  image-rendering: pixelated;
+}
+
+button:hover,
+button:hover * {
+  cursor: url("assets/cursor/pointer.png") 0 0, pointer !important;
+  image-rendering: pixelated;
+}
+
+#algoSelect:hover {
+  cursor: url("assets/cursor/pointer.png") 0 0, pointer !important;
+}
+
 /*********************************************************************/
 /* BACKGROUND */
 
@@ -86,42 +106,48 @@ body {
 }
 
 .cloud-1 {
-  top: -40px;
+  /* top: -40px; */
+  bottom: 760px;
   left: 80%;
   width: auto;
   height: 200px;
 }
 
 .cloud-2 {
-  top: 130px;
+  /* top: 130px; */
+  bottom: 690px;
   left: 15%;
   width: auto;
   height: 100px;
 }
 
 .cloud-3 {
-  top: 110px;
+  /* top: 110px; */
+  bottom: 700px;
   left: 26%;
   width: auto;
   height: 110px;
 }
 
 .cloud-4 {
-  top: 400px;
+  /* top: 400px; */
+  bottom: 420px;
   left: 75%;
   width: auto;
   height: 100px;
 }
 
 .cloud-5 {
-  top: 500px;
+  /* top: 500px; */
+  bottom: 260px;
   left: -8%;
   width: auto;
   height: 160px;
 }
 
 .cloud-6 {
-  top: 650px;
+  /* top: 650px; */
+  bottom: 200px;
   left: 92%;
   width: auto;
   height: 90px;
@@ -156,42 +182,48 @@ body {
 }
 
 .star-1 {
-  top: 30px;
+  /* top: 30px; */
+  bottom: 800px;
   left: 75%;
   width: auto;
   height: 90px;
 }
 
 .star-2 {
-  top: 40px;
+  /* top: 40px; */
+  bottom: 780px;
   left: 35%;
   width: auto;
   height: 100px;
 }
 
 .star-3 {
-  top: 340px;
+  /* top: 340px; */
+  bottom: 500px;
   left: 85%;
   width: auto;
   height: 100px;
 }
 
 .star-4 {
-  top: 480px;
+  /* top: 480px; */
+  bottom: 350px;
   left: 10%;
   width: auto;
   height: 100px;
 }
 
 .star-5 {
-  top: 730px;
+  /* top: 730px; */
+  bottom: 110px;
   left: 4%;
   width: auto;
   height: 80px;
 }
 
 .star-6 {
-  top: 750px;
+  /* top: 750px; */
+  bottom: 100px;
   left: 82%;
   width: auto;
   height: 70px;
@@ -499,12 +531,12 @@ body {
   background: transparent;
 }
 
-.algoSelect-container:hover .algo-dropdown {
+.algoSelect-container:hover .algo-select-img {
   transform: scale(1.021);
   filter: brightness(1.15);
 }
 
-.algoSelect-container:active .algo-dropdown {
+.algoSelect-container:active .algo-select-img {
   transform: scale(0.92);
 }
 
