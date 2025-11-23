@@ -14,16 +14,18 @@ import {
 
 import { MAP, findChar, resizeCanvasToContainer, drawMaze, getCellWeight } from "./maze.js";
 import { createAnimator } from "./animation.js";
-import { wirePauseButton, wireRunButton, startDesktopClock, updateComplexityUI  } from "./ui.js";
+import { wirePauseButton, wireRunButton, startDesktopClock, updateComplexityUI, updateAlgoSelectImg } from "./ui.js";
 
 // ------- DOM -------
 const canvas = document.getElementById("graphCanvas");
 const container = document.getElementById("graph-container");
 const ctx = canvas.getContext("2d");
 
+const algoSelect = document.getElementById("algoSelect");
+const algoSelectImg   = document.getElementById("algoSelectImg");
 const runBtn = document.getElementById("runBtn");
 const pauseBtn = document.getElementById("pauseBtn");
-const algoSelect = document.getElementById("algoSelect");
+pauseBtn.disabled = true;
 
 // algo stats (theoretical)
 const timeStatEl = document.getElementById("timeStat");
@@ -127,8 +129,18 @@ const animator = createAnimator({
   },
 
   onShortestPathStart: () => {
-  if (animator.pendingStats) showStats(animator.pendingStats);
-}
+  if (animator.pendingStats) showStats(animator.pendingStats);  
+  },
+
+  isComplete: () => {
+    pauseBtn.disabled = true;
+
+    const runImg = runBtn.querySelector("img");
+    runBtn.dataset.mode = "replay";
+    runImg.src = "assets/buttons/replay.png";
+    runImg.alt = "Replay";
+  }
+
 });
 
 animator.pendingStats = null;
@@ -161,15 +173,36 @@ function runAlgorithm(algoName) {
 
 // ------- Wire UI -------
 wirePauseButton(pauseBtn, animator);
-wireRunButton(runBtn, algoSelect, runAlgorithm, animator, showStats);
+wireRunButton(runBtn, pauseBtn, algoSelect, runAlgorithm, animator, showStats);
 
 window.addEventListener("load", resizeAndRedraw);
 window.addEventListener("resize", resizeAndRedraw);
 
 updateComplexityUI(timeValEl, spaceValEl, algoSelect.value);
+updateAlgoSelectImg(algoSelectImg, algoSelect.value);
 
 algoSelect.addEventListener("change", () => {
-  updateComplexityUI(timeValEl, spaceValEl, algoSelect.value);
+  const algoValue = algoSelect.value;
+
+  updateComplexityUI(timeValEl, spaceValEl, algoValue);
+  updateAlgoSelectImg(algoSelectImg, algoValue);
+
+  animator.reset();
+  showStats(null);
+
+  const runImg = runBtn.querySelector("img");
+  runBtn.dataset.mode = "run";
+  runImg.src = "assets/buttons/run.png";
+  runImg.alt = "Run";
+
+  if (algoValue) {
+    runBtn.disabled = false;
+  } else {
+    runBtn.disabled = true;
+  }
+
+  pauseBtn.disabled = true;
+
 });
 
 startDesktopClock(
