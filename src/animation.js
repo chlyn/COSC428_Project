@@ -6,53 +6,90 @@ export function createAnimator({
   onShortestPathStart,
   isComplete
 }) {
+
+  // Animation State
   let animationState = null;
+
+  // Control stats
   let isPaused = false;
   let isRunning = false;
 
+
+  // ------- START ANIMATION ------- //
+
   function startAnimation(exploredCells, pathCells) {
+    
     isPaused = false;
     isRunning = true;
 
+    // Reseting Mario animation frames to frame 0
     marioAssets.resetMarioFrames();
 
+    // Creating the animation
     animationState = {
+
+      // Phases: explore -> go to shortest path -> celebration
       phase: "exploringMaze",
       exploredCells,
       pathCells,
+
+      // Number of tiles explored so far and how far Mario is on the shortest path
       currentExploreIndex: 0,
       currentPathIndex: 0,
+
+      // Speed 
       lastFrameTime: 0,
       exploreDelay: 15,
       pathDelay: 120,
+
+      // Celebration time
       celebrationStartTime: null,
       celebrationDuration: 1200,
+
+      // Making sure the stats only show once
       statsRevealed: false,
+
     };
 
+    // Starting the animation loop
     requestAnimationFrame(animationLoop);
   }
 
+
+  // ------- MAIN ANIMATION LOOP ------- //
+
   function animationLoop(timestamp) {
+
+    // If animation is reset or paused then stop drawing
     if (!animationState || isPaused) return;
 
     const state = animationState;
     const timeSinceLastFrame = timestamp - state.lastFrameTime;
     const cellSize = cellSizeRef();
 
+    // ------- EXPLORING THE MAZE ------- //
     if (state.phase === "exploringMaze") {
+
+      // Delaying drawing a frame for better animation
       if (timeSinceLastFrame >= state.exploreDelay) {
+        
+        // Recording last updated frame
         state.lastFrameTime = timestamp;
+        
+        // Redrawing path in the maze
         drawMaze();
 
+        // Drawing explored paths
         for (let i = 0; i <= state.currentExploreIndex && i < state.exploredCells.length; i++) {
           const { r, c } = state.exploredCells[i];
           ctx.fillStyle = "rgba(152, 118, 254, 0.88)";
           ctx.fillRect(c * cellSize, r * cellSize, cellSize, cellSize);
         }
 
+        // Going to the next explored tile
         state.currentExploreIndex++;
 
+        // If exploration is finished then go to the next phase (go to shortest path)
         if (state.currentExploreIndex >= state.exploredCells.length) {
           state.phase = "drawingShortestPath";
           state.lastFrameTime = timestamp;
@@ -65,6 +102,9 @@ export function createAnimator({
         }
       }
     }
+
+
+    // ------- GOING TO SHORTEST ------- //
 
     else if (state.phase === "drawingShortestPath") {
       if (timeSinceLastFrame >= state.pathDelay) {
