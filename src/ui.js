@@ -1,13 +1,29 @@
-
-export function wirePauseButton(pauseBtn, animator) {
-  pauseBtn.addEventListener("click", () => {
-    const paused = animator.togglePause();
-    pauseBtn.textContent = paused ? "Resume" : "Pause";
-  });
-}
-
-export function wireRunButton(runBtn, algoSelect, runAlgorithm, animator, onStatsReady) {
+export function wireRunButton(runBtn, pauseBtn, algoSelect, runAlgorithm, animator, onStatsReady) {
+  const runImg = runBtn.querySelector("img");
+  const RUN_SRC = "assets/buttons/run.png";
+  const REPLAY_SRC = "assets/buttons/replay.png";
+  
+  if (!runBtn.dataset.mode) {
+    if (onStatsReady) onStatsReady(null);
+    runBtn.dataset.mode = "run";
+    runImg.src = RUN_SRC;
+    runImg.alt = "Run";
+  }
+  
   runBtn.addEventListener("click", () => {
+
+    const mode = runBtn.dataset.mode || "run";
+
+    // animation is paused then resume
+    if (animator.isRunning && animator.isPaused) {
+      const nowPaused = animator.togglePause();   
+      if (!nowPaused) {
+        pauseBtn.disabled = false;              
+      }
+      return;
+    }
+
+    // animation is not paused then start a NEW run
     const algo = algoSelect.value;
     const result = runAlgorithm(algo);
 
@@ -16,12 +32,51 @@ export function wireRunButton(runBtn, algoSelect, runAlgorithm, animator, onStat
       return;
     }
 
-    // hide stats while exploring
-    if (onStatsReady) onStatsReady(null);
+    // animation is completed then replay
+    if (mode === "replay") {
+
+      if (onStatsReady) onStatsReady(null);
+
+      const algo = algoSelect.value;
+      const result = runAlgorithm(algo);
+
+      if (!result.path) {
+        alert("No path found.");
+        return;
+      }
+
+      animator.startAnimation(result.explored, result.path);
+
+      // switch back to normal run mode
+      runBtn.dataset.mode = "run";
+      runImg.src = RUN_SRC;
+      runImg.alt = "Run";
+
+      pauseBtn.disabled = false;
+      return;
+    }
 
     animator.pendingStats = result.stats;
-
     animator.startAnimation(result.explored, result.path);
+
+    // enable pause now during run
+    pauseBtn.disabled = false;
+
+  });
+}
+
+export function wirePauseButton(pauseBtn, animator) {
+  pauseBtn.addEventListener("click", () => {
+    
+    if (pauseBtn.disabled) return;
+    
+    const nowPaused = animator.togglePause();
+
+    // animation is paused then disable pause
+    if (nowPaused) {
+      pauseBtn.disabled = true;
+    }
+
   });
 }
 

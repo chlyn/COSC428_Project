@@ -4,6 +4,7 @@ export function createAnimator({
   cellSizeRef,
   marioAssets,
   onShortestPathStart,
+  isComplete
 }) {
   let animationState = null;
   let isPaused = false;
@@ -126,6 +127,11 @@ export function createAnimator({
       if (timestamp - state.celebrationStartTime >= state.celebrationDuration) {
         isRunning = false;
         animationState = null;
+
+        if (typeof isComplete === "function") {
+          isComplete();
+        }
+
         return;
       }
     }
@@ -146,5 +152,17 @@ export function createAnimator({
     animationState = null;
   }
 
-  return { startAnimation, togglePause, reset, get isRunning() { return isRunning; } };
+  return { 
+    startAnimation, 
+    togglePause, 
+    reset, 
+
+    get isRunning() { 
+      return isRunning; 
+    },
+
+    get isPaused() {
+      return isPaused;
+    }
+  };
 }

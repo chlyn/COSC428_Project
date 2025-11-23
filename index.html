@@ -119,9 +119,9 @@
                 <canvas id="graphCanvas"></canvas>
             </div>
 
-          <div class="information-bar">
+          <div class="control-bar">
             <div class="controls">
-              <label class="control-label">Select Algorithm</label>
+              <span class="control-label">Algorithm</span>
               <div class="controls-container">
                 <div class="algoSelect-container">
                   <select id="algoSelect">
@@ -130,31 +130,51 @@
                   </select>
                 </div>
                 <div class="algoBtns-container">
-                  <button id="runBtn">Run</button>
-                  <button id="pauseBtn">Pause</button>
+                  <button id="runBtn" class="algo-btn">
+                    <img src="assets/buttons/run.png" alt="Run">
+                  </button>
+
+                  <button id="pauseBtn" class="algo-btn" disabled>
+                    <img src="assets/buttons/pause.png" alt="Pause">
+                  </button>
                 </div>
               </div>
             </div>
 
             <div class="stats">
-              <div class="stats-complexities">
+
+              <div class="stats-column complexity">
+                <div class="stats-heading">Complexity</div>
                 <span id="timeStat">
-                  <b>Time Complexity:</b> <span id="timeVal">placeholder</span>
+                  <b>Time:</b> <span id="timeVal">placeholder</span>
                 </span>
-
                 <span id="spaceStat">
-                  <b>Memory Complexity:</b> <span id="spaceVal">placeholder</span>
+                  <b>Memory:</b> <span id="spaceVal">placeholder</span>
                 </span>
               </div>
 
-              <div class="stats-stats">
-                <span id="runtimeStat"><b>Runtime:</b> <span id="runtimeVal">— ms</span></span>
-                <span id="exploredStat"><b>Explored:</b> <span id="exploredVal">—</span></span>
-                <span id="pathLenStat"><b>Path Length:</b> <span id="pathLenVal">—</span></span>
-                <span id="pathCostStat"><b>Path Cost:</b> <span id="pathCostVal">—</span></span>
+              <div class="stats-column metrics">
+                <div class="stats-heading">Metrics</div>
+                <span id="runtimeStat">
+                  <b>Runtime:</b> <span id="runtimeVal">— ms</span>
+                </span>
+                <span id="exploredStat">
+                  <b>Explored:</b> <span id="exploredVal">—</span>
+                </span>
               </div>
-            
+
+              <div class="stats-column path">
+                <div class="stats-heading">Path</div>
+                <span id="pathLenStat">
+                  <b>Length:</b> <span id="pathLenVal">—</span>
+                </span>
+                <span id="pathCostStat">
+                  <b>Cost:</b> <span id="pathCostVal">—</span>
+                </span>
+              </div>
+
             </div>
+
           </div>
         </div>
       </div>

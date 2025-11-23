@@ -21,9 +21,10 @@ const canvas = document.getElementById("graphCanvas");
 const container = document.getElementById("graph-container");
 const ctx = canvas.getContext("2d");
 
+const algoSelect = document.getElementById("algoSelect");
 const runBtn = document.getElementById("runBtn");
 const pauseBtn = document.getElementById("pauseBtn");
-const algoSelect = document.getElementById("algoSelect");
+pauseBtn.disabled = true;
 
 // algo stats (theoretical)
 const timeStatEl = document.getElementById("timeStat");
@@ -127,8 +128,18 @@ const animator = createAnimator({
   },
 
   onShortestPathStart: () => {
-  if (animator.pendingStats) showStats(animator.pendingStats);
-}
+  if (animator.pendingStats) showStats(animator.pendingStats);  
+  },
+
+  isComplete: () => {
+    pauseBtn.disabled = true;
+
+    const runImg = runBtn.querySelector("img");
+    runBtn.dataset.mode = "replay";
+    runImg.src = "assets/buttons/replay.png";
+    runImg.alt = "Replay";
+  }
+
 });
 
 animator.pendingStats = null;
@@ -161,7 +172,7 @@ function runAlgorithm(algoName) {
 
 // ------- Wire UI -------
 wirePauseButton(pauseBtn, animator);
-wireRunButton(runBtn, algoSelect, runAlgorithm, animator, showStats);
+wireRunButton(runBtn, pauseBtn, algoSelect, runAlgorithm, animator, showStats);
 
 window.addEventListener("load", resizeAndRedraw);
 window.addEventListener("resize", resizeAndRedraw);
