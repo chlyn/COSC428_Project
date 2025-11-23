@@ -1,11 +1,14 @@
-
-// key for maze
+// ------- KEY FOR MAZE ------- //
+//
 // # = wall
 // S = start
 // G = goal
 // . = light cost
 // ~ = higher cost
 // (space) = normal walkable tile
+
+
+// ------- MAP LAYOUT ------- //
 
 export const MAP = [
   "###########################",
@@ -25,7 +28,7 @@ export const MAP = [
   "###########################",
 ];
 
-// Return number of rows + columns in the map
+// Returning the number of rows and columns in the map
 export function getDims(map = MAP) {
   return { rows: map.length, cols: map[0].length };
 }
@@ -41,6 +44,7 @@ export function findChar(map, ch) {
   return null;
 }
 
+// Checking if the Mario is allowed to move onto a tile
 export function isWalkable(map, r, c) {
   const { rows, cols } = getDims(map);
   if (r < 0 || c < 0 || r >= rows || c >= cols) return false;
@@ -48,13 +52,13 @@ export function isWalkable(map, r, c) {
   return ch === " " || ch === "S" || ch === "G" || ch === "." || ch === "~";
 }
 
-// Assign step cost based on tile type
-// Normal = 1, HIgher cost (~) = 5
+// Assigning the step cost based on the tile type
+// Normal = 1, Higher cost (~) = 5
 export function getCellWeight(ch) {
   return ch === "~" ? 5 : 1;
 }
 
-// making sure the canvas fits the window
+// Making sure the canvas fits the window
 export function resizeCanvasToContainer({ canvas, container, map = MAP }) {
   const { rows, cols } = getDims(map);
   const rect = container.getBoundingClientRect();
@@ -69,7 +73,7 @@ export function resizeCanvasToContainer({ canvas, container, map = MAP }) {
   return { cellSize, rows, cols };
 }
 
-// Draws walls, open space, start point, and goal image
+// Drawing walls, open space, start point, and goal image in the map
 export function drawMaze({ ctx, canvas, cellSize, map = MAP, goalImg, goalReady }) {
   const { rows, cols } = getDims(map);
 
@@ -82,11 +86,11 @@ export function drawMaze({ ctx, canvas, cellSize, map = MAP, goalImg, goalReady 
       const x = c * cellSize;
       const y = r * cellSize;
 
-      // walls
+      // Walls
       ctx.fillStyle = (ch === "#") ? "rgb(0,40,120)" : "rgb(0,0,0)";
       ctx.fillRect(x, y, cellSize, cellSize);
 
-      // start circle
+      // Start circle
       if (ch === "S") {
         ctx.fillStyle = "rgb(255,230,0)";
         ctx.beginPath();
@@ -94,7 +98,7 @@ export function drawMaze({ ctx, canvas, cellSize, map = MAP, goalImg, goalReady 
         ctx.fill();
       }
 
-      // goal image
+      // Goal image
       if (ch === "G" && goalReady) {
         const size = cellSize * 0.9;
         const drawX = x + (cellSize - size) / 2;
